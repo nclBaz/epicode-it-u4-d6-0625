@@ -1,3 +1,6 @@
+import entities.Student;
+import exceptions.ValidationException;
+
 import java.util.Scanner;
 
 public class Main {
@@ -33,26 +36,62 @@ public class Main {
 //			System.out.println(n1 / n2); // ArithmeticException
 //
 
-		Object qualsiasi = new Object();
-
-		qualsiasi = null;
-
-		if (qualsiasi != null)
-			System.out.println(qualsiasi.getClass()); // NullPointerException
+//		Object qualsiasi = new Object();
+//
+//		qualsiasi = null;
+//
+//		if (qualsiasi != null)
+//			System.out.println(qualsiasi.getClass()); // NullPointerException
 
 
 		// ********************************************* CHECKED EXCEPTIONS ******************************
 		// Con queste eccezioni ho l'OBBLIGO DI GESTIONE. Ciò significa che devo scrivere del codice per la loro gestione solo per
 		// poter eseguire il codice. L'applicazione non potrà essere eseguita fino a che non gestisco il codice
 
-		try {
-			Thread.sleep(10000); // Attesa di 10 secondi
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
-		}
+//		try {
+//		Thread.sleep(10000); // Attesa di 10 secondi
+//		} catch (InterruptedException e) {
+//			throw new RuntimeException(e);
+//		}
+
+//		try {
+//			Student student = new Student("A", "Baglio");
+//		} catch (ValidationException ex) {
+//			System.out.println(ex.getMessage());
+//		}
+
+
+//		try {
+//			Student.findById(10);
+//		} catch (UserNotFoundException e) {
+//			System.out.println(e.getMessage());
+//		}
 
 		System.out.println("CIAO");
 
+		try {
+			Student student = new Student("Aldo", "Baglio");
+			System.out.println("Dammi il nuovo nome per Aldo");
+			String newName = scanner.nextLine();
+
+			student.setName(newName);
+
+		} catch (ValidationException ex) {
+
+			System.out.println("Errore di validazione dei dati");
+			System.out.println(ex.getMessage());
+		} catch (NullPointerException ex) {
+			System.out.println("Ho salvato il log di errore nel DB");
+		} catch (ArithmeticException | ArrayIndexOutOfBoundsException ex) {
+			System.out.println("Ho inviato un'email con l'errore al presidente Mattarella");
+		} catch (Exception ex) {
+			System.out.println("Nessuna delle precedenti");
+			ex.printStackTrace();
+		} finally {
+			System.out.println("FINALLY");
+			// Il finally viene eseguito SEMPRE. Non importa se sono finito nel catch oppure no, ciò che inseriamo nel finally viene eseguito a prescindere
+			scanner.close();
+		}
 	}
 
 //	public static void print(String str) {
